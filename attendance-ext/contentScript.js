@@ -48,9 +48,14 @@ function getUserText() {
 function getDateText() {
     // console.log('getDateText')
     const statusContainer = document.getElementsByClassName('status-container')[0];
-    const dateStr = statusContainer.firstChild.firstChild.firstChild.innerText.replaceAll(' ', '');
-    const timeStr1 = statusContainer.lastChild.firstChild.firstChild.innerText;
-    const timeStr2 = statusContainer.lastChild.firstChild.lastChild.innerText;
+    const childElements = Array.from(statusContainer.childNodes).filter(node => node.nodeType === Node.ELEMENT_NODE)
+
+    const dateElement = childElements[0].querySelector('section > div');
+    const dateStr = dateElement.innerText.replaceAll(' ', '');
+
+    const timeElements = childElements[childElements.length - 1].querySelectorAll('div > span');
+    const timeStr1 = timeElements[0].innerText;
+    const timeStr2 = timeElements[1].innerText;
     const ret = `[${dateStr} ${timeStr1}:${timeStr2}]`;
     // console.log(ret);
     return ret;
